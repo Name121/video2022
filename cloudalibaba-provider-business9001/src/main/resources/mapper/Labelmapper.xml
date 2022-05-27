@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ZhangYM.springcloud.label.mapper.LabelMapper">
+<mapper namespace="com.ZhangYM.springcloud.mapper.LabelMapper">
+    <resultMap id="LabelResultMap" type="com.zhangyuanming.entities.Label">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="label_name" jdbcType="VARCHAR" property="labelName"/>
+        <result column="create_date" jdbcType="VARCHAR" property="createDate"/>
+        <result column="update_date" jdbcType="VARCHAR" property="updateDate"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+    </resultMap>
     <update id="updateLabel"></update>
     <delete id="deleteLabel"></delete>
 
-    <select id="listLabel" resultType="com.ZhangYM.entities.Label" parameterType="com.ZhangYM.entities.Label">
+    <select id="listLabel" resultMap="LabelResultMap" parameterType="com.zhangyuanming.entities.Label">
         SELECT * FROM label
         <where>
             <if test="id != null">
                 AND id = #{id}
             </if>
-            <if test="labelCode != null">
-                AND labelCode = #{labelCode}
-            </if>
             <if test="labelName != null">
-                AND labelName = #{labelName}
+                AND label_name = #{labelName}
             </if>
             <if test="createDate != null">
-                AND createDate = #{createDate}
+                AND create_date = #{createDate}
             </if>
             <if test="updateDate != null">
-                AND updateDate = #{updateDate}
+                AND update_date = #{updateDate}
             </if>
             <if test="remark != null">
                 AND remark = #{remark}
@@ -31,56 +36,30 @@
             </if>
         </where>
     </select>
-    <select id="getLabel" resultType="com.ZhangYM.entities.Label"></select>
+    <select id="getLabel" resultType="com.zhangyuanming.entities.Label"></select>
 
-    <insert id="insertLabel" parameterType="com.ZhangYM.entities.Label" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.zhangyuanming.entities.Label" useGeneratedKeys="true" keyProperty="id">
         insert into label
-        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <set>
             <if test="id != null">
-                id,
-            </if>
-            <if test="labelCode != null">
-                labelCode,
+                id = #{id},
             </if>
             <if test="labelName != null">
-                labelName,
+                label_name = #{labelName},
             </if>
             <if test="createDate != null">
-                createDate,
+                create_date = #{createDate},
             </if>
             <if test="updateDate != null">
-                updateDate,
+                update_date = #{updateDate},
             </if>
             <if test="remark != null">
-                remark,
+                remark = #{remark},
             </if>
             <if test="status != null">
-                status,
+                status = #{status},
             </if>
-        </trim>
-        <trim prefix="values(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id},
-            </if>
-            <if test="labelCode != null">
-                #{labelCode},
-            </if>
-            <if test="labelName != null">
-                #{labelName},
-            </if>
-            <if test="createDate != null">
-                #{createDate},
-            </if>
-            <if test="updateDate != null">
-                #{updateDate},
-            </if>
-            <if test="remark != null">
-                #{remark},
-            </if>
-            <if test="status != null">
-                #{status},
-            </if>
-        </trim>
+        </set>
     </insert>
 
 </mapper>

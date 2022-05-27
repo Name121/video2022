@@ -28,3 +28,9 @@ management:
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   type-aliases-package: com.ZhangYM.entities    # 所有Entity别名类所在包
+
+# 日志配置
+logging:
+  level:
+    com.ZhangYM: debug
+    org.springframework: warn
